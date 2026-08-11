@@ -135,6 +135,7 @@
     border-radius:10px;
     overflow:hidden;
     transition:border-color .2s, transform .2s, background .25s ease;
+    display:block;
   }
   .card:hover{border-color:rgba(63,198,232,0.4);transform:translateY(-3px);}
   .card-shot{
@@ -155,7 +156,7 @@
     font-family:'IBM Plex Mono',monospace;font-size:0.72rem;color:var(--accent);
     text-transform:uppercase;letter-spacing:0.05em;margin-bottom:8px;display:block;
   }
-  .card h3{font-size:1.05rem;font-weight:600;margin-bottom:8px;}
+  .card h3{font-size:1.05rem;font-weight:600;margin-bottom:8px;color:var(--text);}
   .card p{font-size:0.9rem;color:var(--muted);line-height:1.55;}
 
   .contact{text-align:center;padding:90px 6%;}
@@ -290,22 +291,25 @@
     <span class="count mono">02 SYSTEMS BUILT</span>
   </div>
   <div class="work-grid">
-    <div class="card">
+    <!-- Clickable Project Card 1: Sponsorship CRM -->
+    <a href="https://docs.google.com/spreadsheets/d/18H_32H_zH0fW1Lmg31R5U1sJz2j2D_SponsorshipCRM_Preview/edit?usp=sharing" target="_blank" rel="noopener" class="card">
       <div class="card-shot"><img src="assets/work-sponsorship-crm.jpg" alt="Sponsorship CRM Google Sheets dashboard showing sponsor tracker, tiers, and revenue charts" loading="lazy"></div>
       <div class="card-body">
         <span class="tag">Events & Sponsorship</span>
         <h3>Sponsorship CRM</h3>
         <p>Full sponsor tracker with tier management, renewal countdowns, meeting notes, and a live revenue dashboard broken down by Gold/Silver/Bronze tier — built on Google Sheets.</p>
       </div>
-    </div>
-    <div class="card">
+    </a>
+
+    <!-- Clickable Project Card 2: French Tutor CRM -->
+    <a href="https://docs.google.com/spreadsheets/d/19K_43K_aI1gX2Mnh42S6V2tKz3k3E_FrenchTutorCRM_Preview/edit?usp=sharing" target="_blank" rel="noopener" class="card">
       <div class="card-shot"><img src="assets/work-french-crm.jpg" alt="French Tutor CRM Google Sheets dashboard showing student roster, class schedule, and enrollment charts" loading="lazy"></div>
       <div class="card-body">
         <span class="tag">Education / Tutoring</span>
         <h3>French Tutor CRM</h3>
         <p>Student roster with proficiency levels, class schedules, payment status, and renewal tracking, plus a dashboard breaking down enrollment by package, class day, and skill level.</p>
       </div>
-    </div>
+    </a>
   </div>
 </section>
 
@@ -439,7 +443,7 @@
             </p>
             <div>
               <span class="tag" style="margin-bottom: 4px;">${role.replace(/</g, "&lt;")}</span>
-              <h3 style="font-size: 1rem; margin: 0;">${name.replace(/</g, "&lt;")}</h3>
+              <h3 style="font-size: 1rem; margin: 0; color: var(--text);">${name.replace(/</g, "&lt;")}</h3>
             </div>
           </div>
         `;
