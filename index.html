@@ -398,7 +398,8 @@
   }
 
   async function loadLiveReviews() {
-    const csvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSZppEyAsJ5dmq-Y1WYSXFdShe_nuqbDzR1BGUHNY7VaRQ5MzoVh_6Pvr6KCzLli-3rd5zmGz6TIzJd/pub?gid=414607640&single=true&output=csv";
+    // Linked securely to your curated approval tab feed
+    const csvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSZppEyAsJ5dmq-Y1WYSXFdShe_nuqbDzR1BGUHNY7VaRQ5MzoVh_6Pvr6KCzLli-3rd5zmGz6TIzJd/pub?gid=266962159&single=true&output=csv";
     
     const container = document.getElementById('reviews-container');
     const countDisplay = document.getElementById('review-count');
@@ -408,11 +409,12 @@
       const data = await response.text();
       const rows = parseCSV(data);
       
-      // Clear header indexes and validate completely empty lines
+      // Clear header indexes and validate that name and review columns aren't blank
       const reviewRows = rows.slice(1).filter(row => row.length >= 4 && row[1] && row[1].trim() !== "");
       
       if (reviewRows.length === 0) {
         container.innerHTML = `<div style="color: var(--muted); grid-column: 1/-1; text-align: center; font-size: 0.9rem; font-family: 'IBM Plex Mono', monospace;">System operational. Awaiting first verified review deployment.</div>`;
+        countDisplay.textContent = "00 VERIFIED REVIEWS";
         return;
       }
       
