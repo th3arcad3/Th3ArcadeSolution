@@ -187,10 +187,11 @@
   .mobile-nav a:last-child{border-bottom:none;}
   .mobile-nav a.active{color:var(--accent);}
 
+  /* Review Styling Configurations */
   .review-section{
     max-width: 680px;
     margin: 0 auto;
-    padding: 64px 6%;
+    padding: 48px 6% 96px;
   }
   .review-container {
     background: var(--panel);
@@ -245,6 +246,7 @@
 </head>
 <body>
 
+<!-- Hidden Form Handling Components -->
 <script type="text/javascript">var submitted = false;</script>
 <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="if(submitted) { window.location.reload(); }"></iframe>
 
@@ -314,6 +316,21 @@
   </div>
 </section>
 
+<!-- ==================== LIVE TESTIMONIAL FEED ==================== -->
+<section id="live-reviews" style="padding: 48px 6%; max-width: 1200px; margin: 0 auto; border-top: 1px solid var(--line);">
+  <div class="section-head" style="margin-bottom: 32px;">
+    <h2>Client System Impacts</h2>
+    <span class="count mono" id="review-count">00 VERIFIED REVIEWS</span>
+  </div>
+  
+  <div class="work-grid" id="reviews-container">
+    <div style="color: var(--muted); font-family: 'IBM Plex Mono', monospace; font-size: 0.9rem; grid-column: 1/-1; text-align: center; padding: 40px 0;">
+      Parsing response metrics...
+    </div>
+  </div>
+</section>
+
+<!-- ==================== SYSTEM IMPACT REVIEW SUBMISSION ==================== -->
 <section class="review-section" id="system-review">
   <div class="review-container">
     <div style="text-align: center; margin-bottom: 28px;">
@@ -352,7 +369,88 @@
   <span>Simple tools. Powerful growth.</span>
 </footer>
 
+<!-- Functional Component Scripts -->
 <script>
+  // Simple CSV line parser to handle basic commas and wrapped quotes cleanly
+  function parseCSV(text) {
+    let lines = [];
+    let row = [""];
+    let inQuotes = false;
+
+    for (let i = 0; i < text.length; i++) {
+      let c = text[i];
+      let next = text[i+1];
+      if (c === '"') {
+        if (inQuotes && next === '"') { row[row.length - 1] += '"'; i++; }
+        else { inQuotes = !inQuotes; }
+      } else if (c === ',' && !inQuotes) {
+        row.push('');
+      } else if ((c === '\r' || c === '\n') && !inQuotes) {
+        if (c === '\r' && next === '\n') { i++; }
+        lines.push(row);
+        row = [''];
+      } else {
+        row[row.length - 1] += c;
+      }
+    }
+    if (row.length > 1 || row[0] !== '') lines.push(row);
+    return lines;
+  }
+
+  async function loadLiveReviews() {
+    const csvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSZppEyAsJ5dmq-Y1WYSXFdShe_nuqbDzR1BGUHNY7VaRQ5MzoVh_6Pvr6KCzLli-3rd5zmGz6TIzJd/pub?gid=414607640&single=true&output=csv";
+    
+    const container = document.getElementById('reviews-container');
+    const countDisplay = document.getElementById('review-count');
+    
+    try {
+      const response = await fetch(csvUrl);
+      const data = await response.text();
+      const rows = parseCSV(data);
+      
+      // Clear header indexes and validate completely empty lines
+      const reviewRows = rows.slice(1).filter(row => row.length >= 4 && row[1] && row[1].trim() !== "");
+      
+      if (reviewRows.length === 0) {
+        container.innerHTML = `<div style="color: var(--muted); grid-column: 1/-1; text-align: center; font-size: 0.9rem; font-family: 'IBM Plex Mono', monospace;">System operational. Awaiting first verified review deployment.</div>`;
+        return;
+      }
+      
+      container.innerHTML = "";
+      countDisplay.textContent = `${String(reviewRows.length).padStart(2, '0')} VERIFIED REVIEWS`;
+      
+      // Render layout with the newest responses appearing first
+      reviewRows.reverse().forEach(row => {
+        const [timestamp, name, role, reviewText] = row;
+        
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.style.display = 'flex';
+        card.style.flexDirection = 'column';
+        
+        card.innerHTML = `
+          <div class="card-body" style="flex: 1; display: flex; flex-direction: column; justify-content: space-between; gap: 16px;">
+            <p style="font-size: 0.95rem; line-height: 1.6; font-style: italic; color: var(--text);">
+              "${reviewText.replace(/</g, "&lt;").replace(/>/g, "&gt;")}"
+            </p>
+            <div>
+              <span class="tag" style="margin-bottom: 4px;">${role.replace(/</g, "&lt;")}</span>
+              <h3 style="font-size: 1rem; margin: 0;">${name.replace(/</g, "&lt;")}</h3>
+            </div>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+      
+    } catch (error) {
+      console.error("Error loading sheet feed:", error);
+      container.innerHTML = `<div style="color: var(--muted); grid-column: 1/-1; text-align: center; font-size: 0.9rem; font-family: 'IBM Plex Mono', monospace;">Review dashboard pipeline down. Check log files.</div>`;
+    }
+  }
+
+  window.addEventListener('DOMContentLoaded', loadLiveReviews);
+
+  // Core theme and layout engine script operations
   const root = document.documentElement;
   const toggleBtn = document.getElementById('theme-toggle');
   const stored = localStorage.getItem('th3arcad3-theme');
