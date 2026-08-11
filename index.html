@@ -257,6 +257,7 @@
   <nav>
     <a href="#home" class="active">Home</a>
     <a href="#work">Portfolio</a>
+    <a href="#live-reviews">Reviews</a>
     <a href="#contact">Contact</a>
   </nav>
   <div style="display:flex;align-items:center;gap:14px;">
@@ -269,6 +270,7 @@
 <nav id="mobile-nav" class="mobile-nav">
   <a href="#home">Home</a>
   <a href="#work">Portfolio</a>
+  <a href="#live-reviews">Reviews</a>
   <a href="#contact">Contact</a>
 </nav>
 
@@ -319,7 +321,7 @@
 <!-- ==================== LIVE TESTIMONIAL FEED ==================== -->
 <section id="live-reviews" style="padding: 48px 6%; max-width: 1200px; margin: 0 auto; border-top: 1px solid var(--line);">
   <div class="section-head" style="margin-bottom: 32px;">
-    <h2>Client System Impacts</h2>
+    <h2>Client Reviews</h2>
     <span class="count mono" id="review-count">00 VERIFIED REVIEWS</span>
   </div>
   
@@ -398,7 +400,7 @@
   }
 
   async function loadLiveReviews() {
-    // Linked securely to your curated approval tab feed
+    // Curated Live Review tab CSV output connection
     const csvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSZppEyAsJ5dmq-Y1WYSXFdShe_nuqbDzR1BGUHNY7VaRQ5MzoVh_6Pvr6KCzLli-3rd5zmGz6TIzJd/pub?gid=266962159&single=true&output=csv";
     
     const container = document.getElementById('reviews-container');
