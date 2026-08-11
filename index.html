@@ -291,9 +291,9 @@
     <span class="count mono">02 SYSTEMS BUILT</span>
   </div>
   <div class="work-grid">
-    <!-- Clickable Project Card 1: Live Sponsorship CRM Link -->
+    <!-- Verified Live Sponsorship CRM Link Setup -->
     <a href="https://docs.google.com/spreadsheets/d/1-zlvGAisVy-sJLVgIwXrr3_p5DMHRyEYjpGwzt7WJ6o/edit?usp=sharing" target="_blank" rel="noopener" class="card">
-      <div class="card-shot"><img src="assets/work-sponsorship-crm.jpg" alt="Sponsorship CRM Google Sheets dashboard showing sponsor tracker, tiers, and revenue charts" loading="lazy"></div>
+      <div class="card-shot"><img src="assets/work-sponsorship-crm.jpg" alt="Sponsorship CRM Dashboard Overview" loading="lazy"></div>
       <div class="card-body">
         <span class="tag">Events & Sponsorship</span>
         <h3>Sponsorship CRM</h3>
@@ -301,9 +301,9 @@
       </div>
     </a>
 
-    <!-- Clickable Project Card 2: Live French Tutor CRM Link -->
+    <!-- Verified Live French Tutor CRM Link Setup -->
     <a href="https://docs.google.com/spreadsheets/d/1dqZ3zQwjDXFD6UkN_d3_ZocMTQuT2ckWgWoyfR2tq4E/edit?usp=sharing" target="_blank" rel="noopener" class="card">
-      <div class="card-shot"><img src="assets/work-french-crm.jpg" alt="French Tutor CRM Google Sheets dashboard showing student roster, class schedule, and enrollment charts" loading="lazy"></div>
+      <div class="card-shot"><img src="assets/work-french-crm.jpg" alt="French Tutor CRM Dashboard Overview" loading="lazy"></div>
       <div class="card-body">
         <span class="tag">Education / Tutoring</span>
         <h3>French Tutor CRM</h3>
@@ -460,6 +460,7 @@
   const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
   const initial = stored || (prefersLight ? 'light' : 'dark');
 
+  // Unified day-night themes helper layout management 
   function applyTheme(theme){
     if(theme === 'light'){
       root.setAttribute('data-theme', 'light');
