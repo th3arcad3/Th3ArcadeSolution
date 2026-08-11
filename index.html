@@ -291,8 +291,8 @@
     <span class="count mono">02 SYSTEMS BUILT</span>
   </div>
   <div class="work-grid">
-    <!-- Clickable Project Card 1: Sponsorship CRM -->
-    <a href="https://docs.google.com/spreadsheets/d/18H_32H_zH0fW1Lmg31R5U1sJz2j2D_SponsorshipCRM_Preview/edit?usp=sharing" target="_blank" rel="noopener" class="card">
+    <!-- Clickable Project Card 1: Live Sponsorship CRM Link -->
+    <a href="https://docs.google.com/spreadsheets/d/1-zlvGAisVy-sJLVgIwXrr3_p5DMHRyEYjpGwzt7WJ6o/edit?usp=sharing" target="_blank" rel="noopener" class="card">
       <div class="card-shot"><img src="assets/work-sponsorship-crm.jpg" alt="Sponsorship CRM Google Sheets dashboard showing sponsor tracker, tiers, and revenue charts" loading="lazy"></div>
       <div class="card-body">
         <span class="tag">Events & Sponsorship</span>
@@ -301,8 +301,8 @@
       </div>
     </a>
 
-    <!-- Clickable Project Card 2: French Tutor CRM -->
-    <a href="https://docs.google.com/spreadsheets/d/19K_43K_aI1gX2Mnh42S6V2tKz3k3E_FrenchTutorCRM_Preview/edit?usp=sharing" target="_blank" rel="noopener" class="card">
+    <!-- Clickable Project Card 2: Live French Tutor CRM Link -->
+    <a href="https://docs.google.com/spreadsheets/d/1dqZ3zQwjDXFD6UkN_d3_ZocMTQuT2ckWgWoyfR2tq4E/edit?usp=sharing" target="_blank" rel="noopener" class="card">
       <div class="card-shot"><img src="assets/work-french-crm.jpg" alt="French Tutor CRM Google Sheets dashboard showing student roster, class schedule, and enrollment charts" loading="lazy"></div>
       <div class="card-body">
         <span class="tag">Education / Tutoring</span>
@@ -377,7 +377,6 @@
 
 <!-- Functional Component Scripts -->
 <script>
-  // Simple CSV line parser to handle basic commas and wrapped quotes cleanly
   function parseCSV(text) {
     let lines = [];
     let row = [""];
@@ -404,7 +403,6 @@
   }
 
   async function loadLiveReviews() {
-    // Curated Live Review tab CSV output connection
     const csvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSZppEyAsJ5dmq-Y1WYSXFdShe_nuqbDzR1BGUHNY7VaRQ5MzoVh_6Pvr6KCzLli-3rd5zmGz6TIzJd/pub?gid=266962159&single=true&output=csv";
     
     const container = document.getElementById('reviews-container');
@@ -415,7 +413,6 @@
       const data = await response.text();
       const rows = parseCSV(data);
       
-      // Clear header indexes and validate that name and review columns aren't blank
       const reviewRows = rows.slice(1).filter(row => row.length >= 4 && row[1] && row[1].trim() !== "");
       
       if (reviewRows.length === 0) {
@@ -427,7 +424,6 @@
       container.innerHTML = "";
       countDisplay.textContent = `${String(reviewRows.length).padStart(2, '0')} VERIFIED REVIEWS`;
       
-      // Render layout with the newest responses appearing first
       reviewRows.reverse().forEach(row => {
         const [timestamp, name, role, reviewText] = row;
         
@@ -458,7 +454,6 @@
 
   window.addEventListener('DOMContentLoaded', loadLiveReviews);
 
-  // Core theme and layout engine script operations
   const root = document.documentElement;
   const toggleBtn = document.getElementById('theme-toggle');
   const stored = localStorage.getItem('th3arcad3-theme');
